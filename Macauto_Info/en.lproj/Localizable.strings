@@ -1,0 +1,38 @@
+/* 
+  Localizable.strings
+  Macauto_Info
+
+  Created by SUNUP on 2017/7/18.
+  Copyright © 2017年 Macauto. All rights reserved.
+*/
+
+"MACAUTO_INFO" = "Macauto Info";
+
+"COMMON_OK" = "OK";
+"COMMON_CANCEL" = "Cancel";
+"COMMON_BACK" = "Back";
+
+"LOGIN_ID" = "ID";
+"LOGIN_PASSWORD" = "Password";
+"LOGIN_LOGIN_BTN" = "Login";
+"LOGIN_CLEAR_BTN" = "Clear";
+"LOGIN_FAIL" = "Login fail. Please check your account and password.";
+"LOGIN_PROGRESS" = "Login...";
+"LOGIN_ID_EMPTY" = "Account can't be empty.";
+"SERVER_ERROR" = "Server error.";
+"COMPLETE_ERROR" = "Some error in your Connection. Please try again.";
+"DATA_LOADING" = "Loading...";
+
+"MSG_TITLE" = "Title";
+"MSG_CONTENT" = "Content";
+"MSG_TIME" = "Time";
+"MSG_DOC_NO" = "Doc No";
+"MSG_PART_NO" = "Part No";
+"MSG_MODEL_NO" = "Model No";
+"MSG_MACHINE_NO" = "Machine No";
+"MSG_PLANT_NO" = "Plant No";
+"ANNOUNCER" = "Announcer";
+
+"SETTING_LOGOUT" = "Logout";
+"SETTING_LOGOUT_ALERT_TITLE" = "Warning!";
+"SETTING_LOGOUT_ALERT_MSG" = "You won't receive msg after logout. Are you sure?";

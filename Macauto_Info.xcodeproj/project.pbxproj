@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5245096FD8F9F291FBA3D728 /* libPods-Macauto_Info.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA15C36A64C09D2A938D3F7 /* libPods-Macauto_Info.a */; };
+		5E3E3D121F1EE78F00D174BA /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E3E3D111F1EE78F00D174BA /* SettingViewController.m */; };
 		5EDF1F491F1D91410068C905 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F481F1D91410068C905 /* main.m */; };
 		5EDF1F4C1F1D91410068C905 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F4B1F1D91410068C905 /* AppDelegate.m */; };
 		5EDF1F4F1F1D91410068C905 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F4E1F1D91410068C905 /* ViewController.m */; };
@@ -15,6 +17,15 @@
 		5EDF1F571F1D91410068C905 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EDF1F551F1D91410068C905 /* LaunchScreen.storyboard */; };
 		5EDF1F621F1D91410068C905 /* Macauto_InfoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F611F1D91410068C905 /* Macauto_InfoTests.m */; };
 		5EDF1F6D1F1D91410068C905 /* Macauto_InfoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F6C1F1D91410068C905 /* Macauto_InfoUITests.m */; };
+		5EDF1F7B1F1D973A0068C905 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5EDF1F7A1F1D973A0068C905 /* GoogleService-Info.plist */; };
+		5EDF1F801F1D9BC00068C905 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5EDF1F821F1D9BC00068C905 /* Localizable.strings */; };
+		5EDF1F881F1D9C8C0068C905 /* NotifyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F871F1D9C8C0068C905 /* NotifyItem.m */; };
+		5EDF1F8B1F1DA25C0068C905 /* ThemeColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F8A1F1DA25C0068C905 /* ThemeColor.m */; };
+		5EDF1F911F1DA7B10068C905 /* OpeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F901F1DA7B10068C905 /* OpeningViewController.m */; };
+		5EDF1F951F1DB4B80068C905 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F941F1DB4B80068C905 /* LoginViewController.m */; };
+		5EDF1F981F1DBD830068C905 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF1F971F1DBD830068C905 /* TabBarViewController.m */; };
+		A175FEEDF968659B82CD3A3C /* libPods-Macauto_InfoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53BC431FB75228111CB26BF4 /* libPods-Macauto_InfoTests.a */; };
+		F2E83982783E458D0832D813 /* libPods-Macauto_InfoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82A3DB475EA3056D07B070BD /* libPods-Macauto_InfoUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +46,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09D0ED78005D07B5C2D43664 /* Pods-Macauto_InfoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macauto_InfoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Macauto_InfoTests/Pods-Macauto_InfoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2CA15C36A64C09D2A938D3F7 /* libPods-Macauto_Info.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Macauto_Info.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50923048C5537CC9B0978373 /* Pods-Macauto_Info.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macauto_Info.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Macauto_Info/Pods-Macauto_Info.debug.xcconfig"; sourceTree = "<group>"; };
+		53BC431FB75228111CB26BF4 /* libPods-Macauto_InfoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Macauto_InfoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E3E3D101F1EE78F00D174BA /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		5E3E3D111F1EE78F00D174BA /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		5EDF1F441F1D91410068C905 /* Macauto_Info.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Macauto_Info.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EDF1F481F1D91410068C905 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5EDF1F4A1F1D91410068C905 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +68,27 @@
 		5EDF1F681F1D91410068C905 /* Macauto_InfoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Macauto_InfoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EDF1F6C1F1D91410068C905 /* Macauto_InfoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Macauto_InfoUITests.m; sourceTree = "<group>"; };
 		5EDF1F6E1F1D91410068C905 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5EDF1F7A1F1D973A0068C905 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5EDF1F7C1F1D9B360068C905 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		5EDF1F7D1F1D9B360068C905 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		5EDF1F811F1D9BC00068C905 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		5EDF1F841F1D9BF40068C905 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5EDF1F861F1D9C8C0068C905 /* NotifyItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyItem.h; sourceTree = "<group>"; };
+		5EDF1F871F1D9C8C0068C905 /* NotifyItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyItem.m; sourceTree = "<group>"; };
+		5EDF1F891F1DA25C0068C905 /* ThemeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeColor.h; sourceTree = "<group>"; };
+		5EDF1F8A1F1DA25C0068C905 /* ThemeColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeColor.m; sourceTree = "<group>"; };
+		5EDF1F8F1F1DA7B10068C905 /* OpeningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpeningViewController.h; sourceTree = "<group>"; };
+		5EDF1F901F1DA7B10068C905 /* OpeningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpeningViewController.m; sourceTree = "<group>"; };
+		5EDF1F921F1DB0240068C905 /* Macauto_Info.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Macauto_Info.entitlements; sourceTree = "<group>"; };
+		5EDF1F931F1DB4B80068C905 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		5EDF1F941F1DB4B80068C905 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		5EDF1F961F1DBD830068C905 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
+		5EDF1F971F1DBD830068C905 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
+		6F4B9AE3F764E17ABA40778C /* Pods-Macauto_InfoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macauto_InfoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Macauto_InfoUITests/Pods-Macauto_InfoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		785E17BB1F7E33975A008A10 /* Pods-Macauto_InfoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macauto_InfoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Macauto_InfoUITests/Pods-Macauto_InfoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7E7BDD6567C9B9ACDE400987 /* Pods-Macauto_Info.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macauto_Info.release.xcconfig"; path = "Pods/Target Support Files/Pods-Macauto_Info/Pods-Macauto_Info.release.xcconfig"; sourceTree = "<group>"; };
+		82A3DB475EA3056D07B070BD /* libPods-Macauto_InfoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Macauto_InfoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F047B406BA7FAB3C99A0FEB9 /* Pods-Macauto_InfoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Macauto_InfoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Macauto_InfoTests/Pods-Macauto_InfoTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5245096FD8F9F291FBA3D728 /* libPods-Macauto_Info.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A175FEEDF968659B82CD3A3C /* libPods-Macauto_InfoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2E83982783E458D0832D813 /* libPods-Macauto_InfoUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +126,8 @@
 				5EDF1F601F1D91410068C905 /* Macauto_InfoTests */,
 				5EDF1F6B1F1D91410068C905 /* Macauto_InfoUITests */,
 				5EDF1F451F1D91410068C905 /* Products */,
+				D7EBE4CD4ABE4957E7917CC9 /* Pods */,
+				FFFF8D4C2A9F1ABF26EBCA89 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +144,8 @@
 		5EDF1F461F1D91410068C905 /* Macauto_Info */ = {
 			isa = PBXGroup;
 			children = (
+				5EDF1F921F1DB0240068C905 /* Macauto_Info.entitlements */,
+				5EDF1F851F1D9C620068C905 /* Data */,
 				5EDF1F4A1F1D91410068C905 /* AppDelegate.h */,
 				5EDF1F4B1F1D91410068C905 /* AppDelegate.m */,
 				5EDF1F4D1F1D91410068C905 /* ViewController.h */,
@@ -109,7 +154,16 @@
 				5EDF1F531F1D91410068C905 /* Assets.xcassets */,
 				5EDF1F551F1D91410068C905 /* LaunchScreen.storyboard */,
 				5EDF1F581F1D91410068C905 /* Info.plist */,
+				5EDF1F7A1F1D973A0068C905 /* GoogleService-Info.plist */,
 				5EDF1F471F1D91410068C905 /* Supporting Files */,
+				5EDF1F8F1F1DA7B10068C905 /* OpeningViewController.h */,
+				5EDF1F901F1DA7B10068C905 /* OpeningViewController.m */,
+				5EDF1F931F1DB4B80068C905 /* LoginViewController.h */,
+				5EDF1F941F1DB4B80068C905 /* LoginViewController.m */,
+				5EDF1F961F1DBD830068C905 /* TabBarViewController.h */,
+				5EDF1F971F1DBD830068C905 /* TabBarViewController.m */,
+				5E3E3D101F1EE78F00D174BA /* SettingViewController.h */,
+				5E3E3D111F1EE78F00D174BA /* SettingViewController.m */,
 			);
 			path = Macauto_Info;
 			sourceTree = "<group>";
@@ -118,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				5EDF1F481F1D91410068C905 /* main.m */,
+				5EDF1F821F1D9BC00068C905 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -140,6 +195,40 @@
 			path = Macauto_InfoUITests;
 			sourceTree = "<group>";
 		};
+		5EDF1F851F1D9C620068C905 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				5EDF1F861F1D9C8C0068C905 /* NotifyItem.h */,
+				5EDF1F871F1D9C8C0068C905 /* NotifyItem.m */,
+				5EDF1F891F1DA25C0068C905 /* ThemeColor.h */,
+				5EDF1F8A1F1DA25C0068C905 /* ThemeColor.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		D7EBE4CD4ABE4957E7917CC9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				50923048C5537CC9B0978373 /* Pods-Macauto_Info.debug.xcconfig */,
+				7E7BDD6567C9B9ACDE400987 /* Pods-Macauto_Info.release.xcconfig */,
+				09D0ED78005D07B5C2D43664 /* Pods-Macauto_InfoTests.debug.xcconfig */,
+				F047B406BA7FAB3C99A0FEB9 /* Pods-Macauto_InfoTests.release.xcconfig */,
+				785E17BB1F7E33975A008A10 /* Pods-Macauto_InfoUITests.debug.xcconfig */,
+				6F4B9AE3F764E17ABA40778C /* Pods-Macauto_InfoUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FFFF8D4C2A9F1ABF26EBCA89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2CA15C36A64C09D2A938D3F7 /* libPods-Macauto_Info.a */,
+				53BC431FB75228111CB26BF4 /* libPods-Macauto_InfoTests.a */,
+				82A3DB475EA3056D07B070BD /* libPods-Macauto_InfoUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +236,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EDF1F711F1D91410068C905 /* Build configuration list for PBXNativeTarget "Macauto_Info" */;
 			buildPhases = (
+				5295E3500364E2838C567E74 /* [CP] Check Pods Manifest.lock */,
 				5EDF1F401F1D91410068C905 /* Sources */,
 				5EDF1F411F1D91410068C905 /* Frameworks */,
 				5EDF1F421F1D91410068C905 /* Resources */,
+				63BFBA109E898F8188C1F8A7 /* [CP] Embed Pods Frameworks */,
+				F1D0F533109670A446BF8F00 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -164,9 +256,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EDF1F741F1D91410068C905 /* Build configuration list for PBXNativeTarget "Macauto_InfoTests" */;
 			buildPhases = (
+				181EB587B355073D791A41AF /* [CP] Check Pods Manifest.lock */,
 				5EDF1F591F1D91410068C905 /* Sources */,
 				5EDF1F5A1F1D91410068C905 /* Frameworks */,
 				5EDF1F5B1F1D91410068C905 /* Resources */,
+				DEC4D72D1FE5762B76DF741D /* [CP] Embed Pods Frameworks */,
+				5E17E8D5FD3532A1A6832EF9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,9 +277,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EDF1F771F1D91410068C905 /* Build configuration list for PBXNativeTarget "Macauto_InfoUITests" */;
 			buildPhases = (
+				0CA8444056B2BBA5AE15C791 /* [CP] Check Pods Manifest.lock */,
 				5EDF1F641F1D91410068C905 /* Sources */,
 				5EDF1F651F1D91410068C905 /* Frameworks */,
 				5EDF1F661F1D91410068C905 /* Resources */,
+				9E7EAB653CBC785221FF680B /* [CP] Embed Pods Frameworks */,
+				3C63CF2C8D25C73C1EF9C0D3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -207,8 +305,13 @@
 				TargetAttributes = {
 					5EDF1F431F1D91410068C905 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 4EVE29BG97;
+						DevelopmentTeam = HUK3AFB2A2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					5EDF1F5C1F1D91410068C905 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -249,7 +352,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EDF1F801F1D9BC00068C905 /* Localizable.strings in Resources */,
 				5EDF1F571F1D91410068C905 /* LaunchScreen.storyboard in Resources */,
+				5EDF1F7B1F1D973A0068C905 /* GoogleService-Info.plist in Resources */,
 				5EDF1F541F1D91410068C905 /* Assets.xcassets in Resources */,
 				5EDF1F521F1D91410068C905 /* Main.storyboard in Resources */,
 			);
@@ -271,14 +376,158 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0CA8444056B2BBA5AE15C791 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		181EB587B355073D791A41AF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3C63CF2C8D25C73C1EF9C0D3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Macauto_InfoUITests/Pods-Macauto_InfoUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5295E3500364E2838C567E74 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5E17E8D5FD3532A1A6832EF9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Macauto_InfoTests/Pods-Macauto_InfoTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		63BFBA109E898F8188C1F8A7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Macauto_Info/Pods-Macauto_Info-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E7EAB653CBC785221FF680B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Macauto_InfoUITests/Pods-Macauto_InfoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DEC4D72D1FE5762B76DF741D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Macauto_InfoTests/Pods-Macauto_InfoTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1D0F533109670A446BF8F00 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Macauto_Info/Pods-Macauto_Info-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5EDF1F401F1D91410068C905 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EDF1F8B1F1DA25C0068C905 /* ThemeColor.m in Sources */,
+				5EDF1F911F1DA7B10068C905 /* OpeningViewController.m in Sources */,
 				5EDF1F4F1F1D91410068C905 /* ViewController.m in Sources */,
 				5EDF1F4C1F1D91410068C905 /* AppDelegate.m in Sources */,
+				5EDF1F981F1DBD830068C905 /* TabBarViewController.m in Sources */,
+				5E3E3D121F1EE78F00D174BA /* SettingViewController.m in Sources */,
+				5EDF1F951F1DB4B80068C905 /* LoginViewController.m in Sources */,
 				5EDF1F491F1D91410068C905 /* main.m in Sources */,
+				5EDF1F881F1D9C8C0068C905 /* NotifyItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +567,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5EDF1F511F1D91410068C905 /* Base */,
+				5EDF1F7C1F1D9B360068C905 /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -326,8 +576,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				5EDF1F561F1D91410068C905 /* Base */,
+				5EDF1F7D1F1D9B360068C905 /* zh-Hant */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		5EDF1F821F1D9BC00068C905 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5EDF1F811F1D9BC00068C905 /* zh-Hant */,
+				5EDF1F841F1D9BF40068C905 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -337,6 +597,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -386,6 +647,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -427,30 +689,37 @@
 		};
 		5EDF1F721F1D91410068C905 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50923048C5537CC9B0978373 /* Pods-Macauto_Info.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4EVE29BG97;
+				CODE_SIGN_ENTITLEMENTS = Macauto_Info/Macauto_Info.entitlements;
+				DEVELOPMENT_TEAM = HUK3AFB2A2;
 				INFOPLIST_FILE = Macauto_Info/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.macauto.Macauto-Info";
+				PRODUCT_BUNDLE_IDENTIFIER = com.macauto.MacautoAppInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		5EDF1F731F1D91410068C905 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E7BDD6567C9B9ACDE400987 /* Pods-Macauto_Info.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4EVE29BG97;
+				CODE_SIGN_ENTITLEMENTS = Macauto_Info/Macauto_Info.entitlements;
+				DEVELOPMENT_TEAM = HUK3AFB2A2;
 				INFOPLIST_FILE = Macauto_Info/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.macauto.Macauto-Info";
+				PRODUCT_BUNDLE_IDENTIFIER = com.macauto.MacautoAppInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		5EDF1F751F1D91410068C905 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09D0ED78005D07B5C2D43664 /* Pods-Macauto_InfoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 4EVE29BG97;
@@ -464,6 +733,7 @@
 		};
 		5EDF1F761F1D91410068C905 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F047B406BA7FAB3C99A0FEB9 /* Pods-Macauto_InfoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 4EVE29BG97;
@@ -477,6 +747,7 @@
 		};
 		5EDF1F781F1D91410068C905 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 785E17BB1F7E33975A008A10 /* Pods-Macauto_InfoUITests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 4EVE29BG97;
 				INFOPLIST_FILE = Macauto_InfoUITests/Info.plist;
@@ -489,6 +760,7 @@
 		};
 		5EDF1F791F1D91410068C905 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F4B9AE3F764E17ABA40778C /* Pods-Macauto_InfoUITests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 4EVE29BG97;
 				INFOPLIST_FILE = Macauto_InfoUITests/Info.plist;
@@ -518,6 +790,7 @@
 				5EDF1F731F1D91410068C905 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5EDF1F741F1D91410068C905 /* Build configuration list for PBXNativeTarget "Macauto_InfoTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +799,7 @@
 				5EDF1F761F1D91410068C905 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5EDF1F771F1D91410068C905 /* Build configuration list for PBXNativeTarget "Macauto_InfoUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +808,7 @@
 				5EDF1F791F1D91410068C905 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

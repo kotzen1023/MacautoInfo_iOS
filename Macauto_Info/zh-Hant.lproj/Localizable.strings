@@ -1,0 +1,38 @@
+/* 
+  Localizable.strings
+  Macauto_Info
+
+  Created by SUNUP on 2017/7/18.
+  Copyright © 2017年 Macauto. All rights reserved.
+*/
+
+"MACAUTO_INFO" = "皇田 異常通知";
+
+"COMMON_OK" = "好";
+"COMMON_CANCEL" = "取消";
+"COMMON_BACK" = "回上頁";
+
+"LOGIN_ID" = "帳號";
+"LOGIN_PASSWORD" = "密碼";
+"LOGIN_LOGIN_BTN" = "登入";
+"LOGIN_CLEAR_BTN" = "清除";
+"LOGIN_FAIL" = "登入失敗. 請確認您的帳號密碼是否正確.";
+"LOGIN_PROGRESS" = "登入中...";
+"LOGIN_ID_EMPTY" = "帳號欄位不能為空.";
+"SERVER_ERROR" = "伺服器錯誤.";
+"COMPLETE_ERROR" = "連線過程中產生錯誤. 請再嘗試一次.";
+"DATA_LOADING" = "讀取中...";
+
+"MSG_TITLE" = "標題";
+"MSG_CONTENT" = "內容";
+"MSG_TIME" = "時間";
+"MSG_DOC_NO" = "文件編號";
+"MSG_PART_NO" = "料件編號";
+"MSG_MODEL_NO" = "機種代號";
+"MSG_MACHINE_NO" = "設備代號";
+"MSG_PLANT_NO" = "廠區代號";
+"ANNOUNCER" = "發佈者";
+
+"SETTING_LOGOUT" = "登出";
+"SETTING_LOGOUT_ALERT_TITLE" = "警告!";
+"SETTING_LOGOUT_ALERT_MSG" = "登出後將不會收到任何訊息. 確定?";
