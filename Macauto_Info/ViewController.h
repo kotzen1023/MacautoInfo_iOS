@@ -11,11 +11,13 @@
 @interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, NSXMLParserDelegate, NSURLSessionDelegate> {
     
     IBOutlet UISearchBar *searchBar;
+    __weak IBOutlet UIButton *btnTypeSelect;
     __weak IBOutlet UITableView *tableView;
     UILabel *activityLabel;
     UIActivityIndicatorView *activityIndicator;
     UIView *container;
     CGRect frame;
+    
     
     UIScrollView *huiView;
     UIButton *btnBack;
@@ -32,6 +34,7 @@
 
 @property NSMutableArray *notifyList;
 @property NSMutableArray *filterNotifyList;
+@property NSMutableArray *typeNotifyList;
 
 @property NSMutableArray *updateList;
 
@@ -39,6 +42,13 @@
 
 @property NSString *user_id;
 @property NSString *uuid;
+@property int status_bar_height;
+@property long unread_sp_count;
+
+@property int current_select_type;
+@property NSString *current_select_string;
+
+- (IBAction)onTypeChange:(id)sender;
 
 @end
 

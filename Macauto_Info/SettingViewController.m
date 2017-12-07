@@ -25,6 +25,8 @@
     user_id = [defaults objectForKey:@"Account"];
     
     [_btnTextLogout setTitle:NSLocalizedString(@"SETTING_LOGOUT", nil) forState:UIControlStateNormal];
+    
+    [_btnTextWhoGoesOut setTitle:NSLocalizedString(@"WHO_GOES_OUT_TITLE", nil) forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,5 +94,11 @@
     [alert addAction:cancelBtn];
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (IBAction)btnImageWhoGoesOutAction:(id)sender {
+}
+
+- (IBAction)btnTextWhoGoesOutAction:(id)sender {
 }
 @end

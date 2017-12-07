@@ -6,7 +6,7 @@
   Copyright © 2017年 Macauto. All rights reserved.
 */
 
-"MACAUTO_INFO" = "皇田 異常通知";
+"MACAUTO_INFO" = "皇田訊息通知";
 
 "COMMON_OK" = "好";
 "COMMON_CANCEL" = "取消";
@@ -32,7 +32,31 @@
 "MSG_MACHINE_NO" = "設備代號";
 "MSG_PLANT_NO" = "廠區代號";
 "ANNOUNCER" = "發佈者";
+"MSG_NO_SUBJECT" = "沒有主旨";
 
 "SETTING_LOGOUT" = "登出";
 "SETTING_LOGOUT_ALERT_TITLE" = "警告!";
 "SETTING_LOGOUT_ALERT_MSG" = "登出後將不會收到任何訊息. 確定?";
+
+"DATE_TODAY" = "今天";
+
+"TYPE_SELECT_TITLE" = "請選擇類型:";
+"TYPE_ALL" = "全部";
+"TYPE_EQUIPMENT_ANOMALOUS" = "設備異常";
+"TYPE_QUALITY_ANOMALOUS" = "品質異常";
+"TYPE_GAUGE_ANOMALOUS" = "治具異常";
+"TYPE_FIXTURE_ANOMALOUS" = "檢具異常";
+"TYPE_STARVED_FEEDING" = "缺料異常";
+
+"WHO_GOES_OUT_TITLE" = "外出人員";
+"WHO_GOES_OUT_EMP_NO" = "工號";
+"WHO_GOES_OUT_EMP_NAME" = "姓名";
+"WHO_GOES_OUT_START_TIME" = "開始時間";
+"WHO_GOES_OUT_END_TIME" = "結束時間";
+"WHO_GOES_OUT_BACK_TIME" = "返回時間";
+"WHO_GOES_OUT_REASON" = "事由";
+"WHO_GOES_OUT_LOCATION" = "地點";
+"WHO_GOES_OUT_CAR_TYPE" = "車輛種類";
+"WHO_GOES_OUT_CAR_NO" = "車牌號碼";
+"WHO_GOES_OUT_CAR_OR_MOTO" = "汽車/機車";
+

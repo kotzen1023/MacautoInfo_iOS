@@ -10,6 +10,7 @@
 #import "NotifyItem.h"
 #import "ThemeColor.h"
 
+
 @interface ViewController ()
 
 @property NSString *soapMessage;
@@ -30,16 +31,20 @@
 
 @property BOOL update;
 @property ThemeColor *themeColor;
-
+@property NSDate *today;
+@property NSDateFormatter *dateFormat;
 @end
 
 @implementation ViewController
 @synthesize activityIndicator;
 @synthesize soapMessage, webResponseData, currentElement;
-@synthesize user_id, uuid;
+@synthesize user_id, uuid, status_bar_height, unread_sp_count;
+@synthesize current_select_type;
+@synthesize current_select_string;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"viewDidLoad");
     // Do any additional setup after loading the view, typically from a nib.
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -47,10 +52,13 @@
     user_id = [defaults objectForKey:@"Account"];
     uuid = [defaults objectForKey:@"DeviceID"];
     
+    //set button text
+    [btnTypeSelect setTitle:@"全部" forState:UIControlStateNormal];
+    current_select_type = 0;
+    current_select_string = @"全部";
+    
     //init orientation
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    
-    
     
     
     //init list
@@ -60,12 +68,22 @@
     [self initLoading];
     [self initItemShow];
     
-    if ([self initObserver] != nil) {
-        NSLog(@"initObserver success!");
-    }
+    //if ([self initObserver] != nil) {
+    //    NSLog(@"initObserver success!");
+    //}
+    
+    
 }
 
+
 - (void) viewDidAppear:(BOOL)animated {
+    
+    NSLog(@"viewDidAppear");
+    
+    _today = [NSDate date];
+    _dateFormat = [[NSDateFormatter alloc] init];
+    [_dateFormat setDateFormat:@"yyyy-MM-dd"];
+    
     
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(orientationChanged:)
@@ -81,6 +99,9 @@
     //set filter = false
     _isFiltered = false;
     
+    if ([self initObserver] != nil) {
+        NSLog(@"initObserver success!");
+    }
 }
 - (void)viewDidDisappear:(BOOL)animated
 {
@@ -93,10 +114,17 @@
     
     [_notifyList removeAllObjects];
     [_filterNotifyList removeAllObjects];
+    [_typeNotifyList removeAllObjects];
+    
     _notifyList = nil;
     _filterNotifyList = nil;
+    _typeNotifyList = nil;
+    
+    _dateFormat = nil;
     
     [tableView reloadData];
+    
+    _update = false;
     
 }
 
@@ -108,7 +136,7 @@
 - (void) orientationChanged:(NSNotification *)note{
     UIDevice *device = [UIDevice currentDevice];
     
-    int status_bar_height = self.topLayoutGuide.length-self.navigationController.navigationBar.frame.size.height;
+    status_bar_height = self.topLayoutGuide.length-self.navigationController.navigationBar.frame.size.height;
     
     int width = self.view.bounds.size.width;
     int height = self.view.bounds.size.height;
@@ -129,57 +157,102 @@
     CGSize background = CGSizeMake(width, height);
     CGRect backRect = CGRectMake(0, 0, width, height);
     
+    if (_is_item_press) {
+        NSLog(@"_is_item_press");
+        huiView.frame = CGRectMake(0, status_bar_height, width, height);
+    } else {
+        huiView.frame = CGRectMake(width, status_bar_height, width, height);
+    }
+    //reset frame
+    lbl_title_show.frame = CGRectMake(105, 30, self.view.bounds.size.width-105, 63);
+    lbl_content_show.frame = CGRectMake(105, 98, self.view.bounds.size.width-105, 126);
+    lbl_time_show.frame = CGRectMake(105, 229, self.view.bounds.size.width-105, 21);
+    lbl_doc_no_show.frame = CGRectMake(105, 255, self.view.bounds.size.width-105, 42);
+    lbl_part_no_show.frame = CGRectMake(105, 302, self.view.bounds.size.width-105, 42);
+    lbl_model_no_show.frame = CGRectMake(105, 349, self.view.bounds.size.width-105, 42);
+    lbl_machine_no_show.frame = CGRectMake(105, 396, self.view.bounds.size.width-105, 42);
+    lbl_plant_no_show.frame = CGRectMake(105, 443, self.view.bounds.size.width-105, 42);
+    lbl_announcer_show.frame = CGRectMake(105, 490, self.view.bounds.size.width-105, 42);
+    
     switch(device.orientation)
     {
         case UIDeviceOrientationPortrait:
             NSLog(@"UIDeviceOrientationPortrait");
             
-            if (_is_item_press) {
+            /*if (_is_item_press) {
                 NSLog(@"_is_item_press");
                 huiView.frame = CGRectMake(0, status_bar_height, width, height);
             } else {
                 huiView.frame = CGRectMake(width, status_bar_height, width, height);
-            }
+            }*/
             
             break;
         case UIDeviceOrientationPortraitUpsideDown:
             NSLog(@"UIDeviceOrientationPortraitUpsideDown");
             
-            if (_is_item_press) {
+            /*if (_is_item_press) {
                 NSLog(@"_is_item_press");
                 huiView.frame = CGRectMake(0, status_bar_height, width, height);
             } else {
                 huiView.frame = CGRectMake(width, status_bar_height, width, height);
-            }
+            }*/
             break;
         case UIDeviceOrientationLandscapeLeft:
             NSLog(@"UIDeviceOrientationLandscapeLeft");
             
             if (_is_item_press) {
                 NSLog(@"_is_item_press");
-                huiView.frame = CGRectMake(0, status_bar_height, width, height);
+                //huiView.frame = CGRectMake(0, status_bar_height, width, height);
+                
+                /*
+                 huiView.frame = CGRectMake((self.view.bounds.size.width), self.topLayoutGuide.length-self.navigationController.navigationBar.frame.size.height,
+                 self.view.bounds.size.width,
+                 self.view.bounds.size.height);                 */
+                
                 if (huiView.contentSize.height > height) {
                     background = CGSizeMake(width, huiView.contentSize.height);
                     backRect = CGRectMake(0, status_bar_height, width, huiView.contentSize.height);
                 }
-            } else {
+                
+                //[lbl_title_show initWithFrame:CGRectMake(105, 30, self.view.bounds.size.width-105, 63)];
+                
+                
+                
+                //lbl_title_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 30, self.view.bounds.size.width-105, 63)];
+                
+            } /*else {
                 huiView.frame = CGRectMake(width, status_bar_height, width, height);
-            }
+            }*/
             
             
             break;
         case UIDeviceOrientationLandscapeRight:
             NSLog(@"UIDeviceOrientationLandscapeRight");
             
-            if (_is_item_press) {
+            /*if (_is_item_press) {
                 NSLog(@"_is_item_press");
                 huiView.frame = CGRectMake(0, status_bar_height, width, height);
             } else {
                 huiView.frame = CGRectMake(width, status_bar_height, width, height);
+            }*/
+            
+            if (_is_item_press) {
+                if (huiView.contentSize.height > height) {
+                    background = CGSizeMake(width, huiView.contentSize.height);
+                    backRect = CGRectMake(0, status_bar_height, width, huiView.contentSize.height);
+                }
             }
+
             break;
             
         default:
+            NSLog(@"default");
+            /*if (_is_item_press) {
+                NSLog(@"_is_item_press");
+                huiView.frame = CGRectMake(0, status_bar_height, width, height);
+            } else {
+                huiView.frame = CGRectMake(width, status_bar_height, width, height);
+            }*/
             break;
     };
     
@@ -192,7 +265,11 @@
     if (_isFiltered) {
         rowCount = [_filterNotifyList count];
     } else {
-        rowCount = [_notifyList count];
+        if (current_select_type == 0) {
+            rowCount = [_notifyList count];
+        } else {
+            rowCount = [_typeNotifyList count];
+        }
     }
     return rowCount;
     //return [mainArray count];
@@ -217,23 +294,46 @@
     if (_isFiltered) {
         item = [_filterNotifyList objectAtIndex:indexPath.row];
     } else {
-        item = [_notifyList objectAtIndex:indexPath.row];
+        if (current_select_type == 0) {
+            item = [_notifyList objectAtIndex:indexPath.row];
+        } else {
+            item = [_typeNotifyList objectAtIndex:indexPath.row];
+        }
     }
     
     UILabel *subject = (UILabel *)[cell viewWithTag:100];
+    UILabel *day = (UILabel *)[cell viewWithTag:103];
     //subject.textColor = [UIColor colorWithRed:(120/255.0) green:(120/255.0) blue:(120/255.0) alpha:1.0];
     //subject.text = item.title;
     NSLog(@"%@-%@-%@", item.msg_code, item.msg_title, item.msg_content);
     
-    subject.text = [NSString stringWithFormat:@"%@", item.msg_title];
+    if (item.msg_title == nil || [item.msg_title isEqualToString:@""]) {
+        subject.text = [NSString stringWithFormat:@"%@", item.msg_code];
+    } else {
+        subject.text = [NSString stringWithFormat:@"%@", item.msg_title];
+    }
     
     UILabel *time = (UILabel *) [cell viewWithTag:101];
     //time.textColor = [UIColor colorWithRed:(120/255.0) green:(120/255.0) blue:(120/255.0) alpha:1.0];
+    NSString *todayDateString = [_dateFormat stringFromDate:_today];
     
     NSArray *end_split = [item.announce_date componentsSeparatedByString:@"T"];
     NSArray *time_split = [end_split[1] componentsSeparatedByString:@"+"];
     
     NSString *new_time = [time_split[0] substringToIndex:[time_split[0] length] - 3];
+    
+    if ([end_split[0] isEqualToString:todayDateString]) {
+        day.text = NSLocalizedString(@"DATE_TODAY", nil);
+    } else {
+        NSString *year_string = [end_split[0] substringToIndex:[end_split[0] length] - 6];
+        NSString *year_today = [todayDateString substringToIndex:[todayDateString length] - 6];
+        if ([year_today isEqualToString:year_string]) { //same year
+            day.text = [end_split[0] substringFromIndex:5];
+        } else {
+            day.text = end_split[0];
+        }
+        
+    }
     
     time.text = new_time;
     
@@ -268,21 +368,74 @@
     if (_isFiltered) {
         item = [_filterNotifyList objectAtIndex:rowCount];
         
+        for (int i=0; i<_filterNotifyList.count; i++) {
+            NotifyItem *temp = [_filterNotifyList objectAtIndex:i];
+            if ([item.msg_id isEqualToString: temp.msg_id] &&
+                [item.msg_code isEqualToString: temp.msg_code] &&
+                [item.msg_title isEqualToString: temp.msg_title] &&
+                [item.msg_content isEqualToString: temp.msg_content] &&
+                [temp.sp isEqualToString:@"N"]) {
+                [temp setReadSp:@"Y"];
+                [self sendHttpPost2:temp.msg_id];
+            }
+            
+            //set original list read
+            for (int i=0; i<_notifyList.count; i++) {
+                NotifyItem *temp = [_notifyList objectAtIndex:i];
+                if ([item.msg_id isEqualToString: temp.msg_id] &&
+                    [item.msg_code isEqualToString: temp.msg_code] &&
+                    [item.msg_title isEqualToString: temp.msg_title] &&
+                    [item.msg_content isEqualToString: temp.msg_content] &&
+                    [temp.sp isEqualToString:@"N"]) {
+                    [temp setReadSp:@"Y"];
+                }
+            }
+        }
     } else {
-        item = [_notifyList objectAtIndex:rowCount];
-    }
-    
-    for (int i=0; i<_notifyList.count; i++) {
-        NotifyItem *temp = [_notifyList objectAtIndex:i];
-        if ([item.msg_id isEqualToString: temp.msg_id] &&
-            [item.msg_code isEqualToString: temp.msg_code] &&
-            [item.msg_title isEqualToString: temp.msg_title] &&
-            [item.msg_content isEqualToString: temp.msg_content] &&
-            [temp.sp isEqualToString:@"N"]) {
-            [temp setReadSp:@"Y"];
-            [self sendHttpPost2:temp.msg_id];
+        if (current_select_type == 0) {
+            item = [_notifyList objectAtIndex:rowCount];
+            
+            for (int i=0; i<_notifyList.count; i++) {
+                NotifyItem *temp = [_notifyList objectAtIndex:i];
+                if ([item.msg_id isEqualToString: temp.msg_id] &&
+                    [item.msg_code isEqualToString: temp.msg_code] &&
+                    [item.msg_title isEqualToString: temp.msg_title] &&
+                    [item.msg_content isEqualToString: temp.msg_content] &&
+                    [temp.sp isEqualToString:@"N"]) {
+                    [temp setReadSp:@"Y"];
+                    [self sendHttpPost2:temp.msg_id];
+                }
+            }
+        } else {
+            item = [_typeNotifyList objectAtIndex:rowCount];
+            
+            for (int i=0; i<_typeNotifyList.count; i++) {
+                NotifyItem *temp = [_typeNotifyList objectAtIndex:i];
+                if ([item.msg_id isEqualToString: temp.msg_id] &&
+                    [item.msg_code isEqualToString: temp.msg_code] &&
+                    [item.msg_title isEqualToString: temp.msg_title] &&
+                    [item.msg_content isEqualToString: temp.msg_content] &&
+                    [temp.sp isEqualToString:@"N"]) {
+                    [temp setReadSp:@"Y"];
+                    [self sendHttpPost2:temp.msg_id];
+                }
+            }
+            
+            //set original list read
+            for (int i=0; i<_notifyList.count; i++) {
+                NotifyItem *temp = [_notifyList objectAtIndex:i];
+                if ([item.msg_id isEqualToString: temp.msg_id] &&
+                    [item.msg_code isEqualToString: temp.msg_code] &&
+                    [item.msg_title isEqualToString: temp.msg_title] &&
+                    [item.msg_content isEqualToString: temp.msg_content] &&
+                    [temp.sp isEqualToString:@"N"]) {
+                    [temp setReadSp:@"Y"];
+                }
+            }
         }
     }
+    
+    
     
     
     
@@ -297,7 +450,15 @@
         
         huiView.contentSize = CGSizeMake(0, lbl_title_header.frame.origin.y + lbl_title_header.frame.size.height+50);
         
-        [lbl_title_show setText: [NSString stringWithFormat:@"%@ %@", item.msg_code, item.msg_title]];
+        lbl_title_show.frame = CGRectMake(105, 30, self.view.bounds.size.width-105, 63);
+        
+        if (item.msg_title == nil || [item.msg_title isEqualToString:@""]) {
+            [lbl_title_show setText: [NSString stringWithFormat:@"%@", item.msg_code]];
+        } else {
+            [lbl_title_show setText: [NSString stringWithFormat:@"%@ %@", item.msg_code, item.msg_title]];
+        }
+        
+    
         
         [lbl_content_show setText:item.msg_content];
         
@@ -321,10 +482,58 @@
         
         [lbl_time_show setText: dateString];
         
+        if (item.internal_doc_no != nil || ![item.internal_doc_no compare:@""]) {
+            lbl_doc_no_header.hidden = true;
+            lbl_doc_no_show.hidden = true;
+        } else {
+            lbl_doc_no_header.hidden = false;
+            lbl_doc_no_show.hidden = false;
+        }
+        
+        if (item.internal_part_no != nil || ![item.internal_part_no compare:@""]) {
+            lbl_part_no_header.hidden = true;
+            lbl_part_no_show.hidden = true;
+        } else {
+            lbl_part_no_header.hidden = false;
+            lbl_part_no_show.hidden = false;
+        }
+        
+        if (item.internal_model_no != nil || ![item.internal_model_no compare:@""]) {
+            lbl_model_no_header.hidden = true;
+            lbl_model_no_show.hidden = true;
+        } else {
+            lbl_model_no_header.hidden = false;
+            lbl_model_no_show.hidden = false;
+        }
+        
+        if (item.internal_machine_no != nil || ![item.internal_machine_no compare:@""]) {
+            lbl_machine_no_header.hidden = true;
+            lbl_machine_no_show.hidden = true;
+        } else {
+            lbl_machine_no_header.hidden = false;
+            lbl_machine_no_show.hidden = false;
+        }
+        
+        if (item.internal_plant_no != nil || ![item.internal_plant_no compare:@""]) {
+            lbl_plant_no_header.hidden = true;
+            lbl_plant_no_show.hidden = true;
+        } else {
+            lbl_plant_no_header.hidden = false;
+            lbl_plant_no_show.hidden = false;
+        }
+        
+        if (item.announcer != nil || ![item.announcer compare:@""]) {
+            lbl_announcer_header.hidden = true;
+            lbl_announcer_show.hidden = true;
+        } else {
+            lbl_announcer_header.hidden = false;
+            lbl_announcer_show.hidden = false;
+        }
+        
         //[lbl_time_show setText: item.announce_date];
         
         
-        
+        huiView.contentSize = CGSizeMake(0, status_bar_height+lbl_announcer_header.frame.origin.y + lbl_announcer_header.frame.size.height+50);
         
     }];
     
@@ -357,6 +566,7 @@
     
     _notifyList = [[NSMutableArray alloc] init];
     _filterNotifyList = [[NSMutableArray alloc] init];
+    _typeNotifyList = [[NSMutableArray alloc] init];
     searchBar.delegate = self;
 }
 
@@ -404,7 +614,7 @@
 
 -(void) initItemShow {
     huiView = [[UIScrollView alloc] initWithFrame:CGRectMake(
-                                                             (self.view.bounds.size.width), self.topLayoutGuide.length-self.navigationController.navigationBar.frame.size.height,
+                                                             (self.view.bounds.size.height), self.topLayoutGuide.length-self.navigationController.navigationBar.frame.size.height,
                                                              self.view.bounds.size.width,
                                                              self.view.bounds.size.height)];
     huiView.backgroundColor = [UIColor colorWithRed:(255/255.0) green:(255/255.0) blue:(255/255.0) alpha:1.0];
@@ -420,79 +630,79 @@
     [huiView addSubview:btnBack];
     
     //ID
-    lbl_title_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 80, 21)];
+    lbl_title_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 80, 63)];
     [lbl_title_header setText: NSLocalizedString(@"MSG_TITLE", nil)];
     [huiView addSubview:lbl_title_header];
     
-    lbl_title_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 30, self.view.bounds.size.width-105, 21)];
-
+    lbl_title_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 30, self.view.bounds.size.width-105, 63)];
+    lbl_title_show.numberOfLines = 0;
     [huiView addSubview:lbl_title_show];
     
     //content
-    lbl_content_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 56, 80, 126)];
+    lbl_content_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 98, 80, 126)];
     [lbl_content_header setText:NSLocalizedString(@"MSG_CONTENT", nil)];
     [huiView addSubview:lbl_content_header];
     
-    lbl_content_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 56, self.view.bounds.size.width-105, 126)];
+    lbl_content_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 98, self.view.bounds.size.width-105, 126)];
     lbl_content_show.lineBreakMode = NSLineBreakByWordWrapping;
     lbl_content_show.numberOfLines = 0;
     [huiView addSubview:lbl_content_show];
     
     //Start time (h: 30+21+5
-    lbl_time_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 187, 80, 21)];
+    lbl_time_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 229, 80, 21)];
     //[lbl_time_header setTextColor:[UIColor whiteColor]];
     //[lbl_time_header setText: NSLocalizedString(@"MEETING_SHOW_DETAIL_START_TIME", nil)];
     [lbl_time_header setText:NSLocalizedString(@"MSG_TIME", nil)];
     [huiView addSubview:lbl_time_header];
     
-    lbl_time_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 187, self.view.bounds.size.width-105, 21)];
+    lbl_time_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 229, self.view.bounds.size.width-105, 21)];
 
     [huiView addSubview: lbl_time_show];
     //doc no
-    lbl_doc_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 213, 80, 42)];
+    lbl_doc_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 255, 80, 42)];
     [lbl_doc_no_header setText:NSLocalizedString(@"MSG_DOC_NO", nil)];
     [huiView addSubview:lbl_doc_no_header];
     
-    lbl_doc_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 213, self.view.bounds.size.width-105, 42)];
+    lbl_doc_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 255, self.view.bounds.size.width-105, 42)];
     lbl_doc_no_show.lineBreakMode = NSLineBreakByWordWrapping;
     lbl_doc_no_show.numberOfLines = 0;
     [huiView addSubview:lbl_doc_no_show];
     //part no
-    lbl_part_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 260, 80, 42)];
+    lbl_part_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 302, 80, 42)];
     [lbl_part_no_header setText:NSLocalizedString(@"MSG_PART_NO", nil)];
     [huiView addSubview:lbl_part_no_header];
     
-    lbl_part_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 260, self.view.bounds.size.width-105, 42)];
+    lbl_part_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 302, self.view.bounds.size.width-105, 42)];
     lbl_part_no_show.lineBreakMode = NSLineBreakByWordWrapping;
     lbl_part_no_show.numberOfLines = 0;
     [huiView addSubview:lbl_part_no_show];
     //model no
-    lbl_model_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 307, 80, 42)];
+    lbl_model_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 349, 80, 42)];
     [lbl_model_no_header setText:NSLocalizedString(@"MSG_MODEL_NO", nil)];
     [huiView addSubview:lbl_model_no_header];
     
-    lbl_model_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 307, self.view.bounds.size.width-105, 42)];
+    lbl_model_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 349, self.view.bounds.size.width-105, 42)];
     [huiView addSubview:lbl_model_no_show];
     //machine no
-    lbl_machine_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 354, 80, 42)];
+    lbl_machine_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 396, 80, 42)];
     [lbl_machine_no_header setText:NSLocalizedString(@"MSG_MACHINE_NO", nil)];
     [huiView addSubview:lbl_machine_no_header];
     
-    lbl_machine_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 354, self.view.bounds.size.width-105, 42)];
+    lbl_machine_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 396, self.view.bounds.size.width-105, 42)];
     [huiView addSubview:lbl_machine_no_show];
     //plant no
-    lbl_plant_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 401, 80, 42)];
+    lbl_plant_no_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 443, 80, 42)];
     [lbl_plant_no_header setText:NSLocalizedString(@"MSG_PLANT_NO", nil)];
     [huiView addSubview:lbl_plant_no_header];
     
-    lbl_plant_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 401, self.view.bounds.size.width-105, 42)];
+    lbl_plant_no_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 443, self.view.bounds.size.width-105, 42)];
     [huiView addSubview:lbl_plant_no_show];
     //announcer
-    lbl_announcer_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 448, 80, 42)];
+    lbl_announcer_header = [[UILabel alloc] initWithFrame:CGRectMake(5, 490, 80, 42)];
     [lbl_announcer_header setText:NSLocalizedString(@"ANNOUNCER", nil)];
     [huiView addSubview:lbl_announcer_header];
     
-    lbl_announcer_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 448, self.view.bounds.size.width-105, 42)];
+    lbl_announcer_show = [[UILabel alloc] initWithFrame:CGRectMake(105, 490, self.view.bounds.size.width-105, 42)];
     [huiView addSubview:lbl_announcer_show];
     
 }
@@ -525,35 +735,66 @@
     
     NSLog(@"=============>searchTableList, searchString = %@", searchString);
     
-    for (NotifyItem *tempItem in _notifyList) {
-        NSLog(@"temp = %@", tempItem.msg_title);
-        //NSComparisonResult result = [tempItem.result compare:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
-        if ([tempItem.msg_code containsString:searchString ] ||
-            [tempItem.msg_title containsString:searchString] ||
-            [tempItem.msg_content containsString:searchString] ||
-            [tempItem.announce_date containsString:searchString]) {
-            //if (result == NSOrderedSame) {
-            
-            NotifyItem *item = [[NotifyItem alloc] init];
-            [item setMsg_id:tempItem.msg_id];
-            [item setMsg_code:tempItem.msg_code];
-            [item setMsg_title:tempItem.msg_title];
-            [item setMsg_content:tempItem.msg_content];
-            [item setAnnounce_date:tempItem.announce_date];
-            [item setInternal_doc_no:tempItem.internal_doc_no];
-            [item setInternal_part_no:tempItem.internal_part_no];
-            [item setInternal_model_no:tempItem.internal_model_no];
-            [item setInternal_plant_no:tempItem.internal_plant_no];
-            [item setAnnouncer:tempItem.announcer];
-            [item setIme_code:tempItem.ime_code];
-            [item setReadSp:tempItem.sp];
-            
-            
-            [_filterNotifyList addObject:item];
+    if (current_select_type == 0) {
+    
+        for (NotifyItem *tempItem in _notifyList) {
+            NSLog(@"temp = %@", tempItem.msg_title);
+            //NSComparisonResult result = [tempItem.result compare:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
+            if ([tempItem.msg_code containsString:searchString ] ||
+                [tempItem.msg_title containsString:searchString] ||
+                [tempItem.msg_content containsString:searchString] ||
+                [tempItem.announce_date containsString:searchString]) {
+                //if (result == NSOrderedSame) {
+                
+                NotifyItem *item = [[NotifyItem alloc] init];
+                [item setMsg_id:tempItem.msg_id];
+                [item setMsg_code:tempItem.msg_code];
+                [item setMsg_title:tempItem.msg_title];
+                [item setMsg_content:tempItem.msg_content];
+                [item setAnnounce_date:tempItem.announce_date];
+                [item setInternal_doc_no:tempItem.internal_doc_no];
+                [item setInternal_part_no:tempItem.internal_part_no];
+                [item setInternal_model_no:tempItem.internal_model_no];
+                [item setInternal_plant_no:tempItem.internal_plant_no];
+                [item setAnnouncer:tempItem.announcer];
+                [item setIme_code:tempItem.ime_code];
+                [item setReadSp:tempItem.sp];
+                
+                
+                [_filterNotifyList addObject:item];
+            }
+        }
+    } else {
+        for (NotifyItem *tempItem in _typeNotifyList) {
+            NSLog(@"temp = %@", tempItem.msg_title);
+            //NSComparisonResult result = [tempItem.result compare:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
+            if ([tempItem.msg_code containsString:searchString ] ||
+                [tempItem.msg_title containsString:searchString] ||
+                [tempItem.msg_content containsString:searchString] ||
+                [tempItem.announce_date containsString:searchString]) {
+                //if (result == NSOrderedSame) {
+                
+                NotifyItem *item = [[NotifyItem alloc] init];
+                [item setMsg_id:tempItem.msg_id];
+                [item setMsg_code:tempItem.msg_code];
+                [item setMsg_title:tempItem.msg_title];
+                [item setMsg_content:tempItem.msg_content];
+                [item setAnnounce_date:tempItem.announce_date];
+                [item setInternal_doc_no:tempItem.internal_doc_no];
+                [item setInternal_part_no:tempItem.internal_part_no];
+                [item setInternal_model_no:tempItem.internal_model_no];
+                [item setInternal_plant_no:tempItem.internal_plant_no];
+                [item setAnnouncer:tempItem.announcer];
+                [item setIme_code:tempItem.ime_code];
+                [item setReadSp:tempItem.sp];
+                
+                
+                [_filterNotifyList addObject:item];
+            }
         }
     }
     
-    NSLog(@"filter size = %lu", [_filterNotifyList count]);
+    NSLog(@"filter size = %lu", (unsigned long)[_filterNotifyList count]);
 }
 
 
@@ -645,6 +886,8 @@
          _item = nil;
          dateFormatter = nil;*/
         
+        _update = false;
+        
         [self sendHttpPost];
         
     }
@@ -666,7 +909,7 @@
     
     _notifyList = [[NSMutableArray alloc] init];
     
-    
+    //NSLog(@"user_id = %@", user_id);
     
     //first create the soap envelope
     soapMessage = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -676,13 +919,13 @@
                    "<ime_code>%@</ime_code>"
                    "</Message_get_list>"
                    "</soap:Body>"
-                   "</soap:Envelope>", uuid];
+                   "</soap:Envelope>", user_id];
     
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
     
     //Now create a request to the URL
-    NSURL *url = [NSURL URLWithString:@"http://60.249.239.47:8920/service.asmx"];
+    NSURL *url = [NSURL URLWithString:@"http://60.249.239.47:9571/service.asmx"];
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapMessage length]];
     
@@ -734,20 +977,20 @@
                    "<ime_code>%@</ime_code>"
                    "</Message_Update_Read_Status>"
                    "</soap:Body>"
-                   "</soap:Envelope>", message_id, user_id ,uuid];
+                   "</soap:Envelope>", message_id, user_id ,user_id];
     
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
     
     //Now create a request to the URL
-    NSURL *url = [NSURL URLWithString:@"http://60.249.239.47:8920/service.asmx"];
+    NSURL *url = [NSURL URLWithString:@"http://60.249.239.47:9571/service.asmx"];
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url];
     NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapMessage length]];
     
     //ad required headers to the request
     [theRequest addValue:@"60.249.239.47" forHTTPHeaderField:@"Host"];
     [theRequest addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [theRequest addValue: @"http://tempuri.org/Update_Read_Status" forHTTPHeaderField:@"SOAPAction"];
+    [theRequest addValue: @"http://tempuri.org/Message_Update_Read_Status" forHTTPHeaderField:@"SOAPAction"];
     [theRequest addValue: msgLength forHTTPHeaderField:@"Content-Length"];
     [theRequest setHTTPMethod:@"POST"];
     [theRequest setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
@@ -818,9 +1061,20 @@
         
         // Run the parser
         @try{
+            unread_sp_count = 0;
             BOOL parsingResult = [xmlParser parse];
             NSLog(@"parsing result = %d",parsingResult);
-            NSLog(@"notify_count = %ld", _notifyList.count );
+            NSLog(@"notify_count = %ld", (unsigned long)_notifyList.count );
+            
+            [UIApplication sharedApplication].applicationIconBadgeNumber = unread_sp_count
+            ;
+            
+            //save badge to default
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            if (unread_sp_count >= 0) {
+                NSString *unread_badge = [NSString stringWithFormat:@"%ld", unread_sp_count];
+                [defaults setObject:unread_badge forKey:@"Badge"];
+            }
             
             //for(int i=0;i<_personalMeetingList.count; i++) {
             //    MeetingItem *item = [_personalMeetingList objectAtIndex:i];
@@ -902,7 +1156,7 @@
     //NSLog(@"foundCharacters %@", string);
     //_elementValue = string;
     //NSLog(@"value = %@", string);
-    NSLog(@"value = %@, size = %ld", string, string.length);
+    NSLog(@"value = %@, size = %ld", string, (unsigned long)string.length);
     if (_isRoomName) {
         //if (![string isEqualToString:@" "]) {
         _elementValue = [NSString stringWithFormat: @"%@%@", _elementValue, string];
@@ -1010,16 +1264,39 @@
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             
             [_item setReadSp:_elementValue];
+            if ([[_item sp] isEqualToString:@"N"]) {
+                unread_sp_count++;
+            }
         }
-    } else if ([elementName isEqualToString:@"Update_Read_StatusResponse"]) {
+    } else if ([elementName isEqualToString:@"Message_Update_Read_StatusResponse"]) {
         _update = false;
-    } else if([elementName isEqualToString:@"Update_Read_StatusResult"]) {
+    } else if([elementName isEqualToString:@"Message_Update_Read_StatusResult"]) {
         NSLog(@"value = %@", _elementValue);
         NSLog(@"</%@>", elementName);
         
         if ([_elementValue isEqualToString:@"OK"]) {
             
             NSLog(@"update readSp success!");
+            
+            //load badge
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSString *unread_badge = [defaults objectForKey:@"Badge"];
+            unread_sp_count = [unread_badge intValue];
+            
+            NSLog(@"current badge = %ld", unread_sp_count);
+            if (unread_sp_count > 0) {
+                
+                
+                unread_sp_count--;
+                //[UIApplication sharedApplication].applicationIconBadgeNumber = unread_sp_count;
+                
+                //save badge to default
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                if (unread_sp_count > 0) {
+                    NSString *unread_badge = [NSString stringWithFormat:@"%ld", unread_sp_count];
+                    [defaults setObject:unread_badge forKey:@"Badge"];
+                }
+            }
         } else {
             NSLog(@"update readSp failed!");
         }
@@ -1034,5 +1311,147 @@
         self.view.frame = theFrame;
     }
     return self;
+}
+
+- (void) changeTableTypeList {
+    
+    [_typeNotifyList removeAllObjects];
+    _typeNotifyList = nil;
+    
+    _typeNotifyList = [[NSMutableArray alloc] init];
+    
+    //NSString *searchString = searchBar.text;
+    
+    NSLog(@"changeTableTypeList");
+    
+    for (NotifyItem *tempItem in _notifyList) {
+        NSLog(@"temp = %@", tempItem.msg_title);
+        //NSComparisonResult result = [tempItem.result compare:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
+        if ([tempItem.msg_title containsString:current_select_string]) {
+            //if (result == NSOrderedSame) {
+            
+            NotifyItem *item = [[NotifyItem alloc] init];
+            [item setMsg_id:tempItem.msg_id];
+            [item setMsg_code:tempItem.msg_code];
+            [item setMsg_title:tempItem.msg_title];
+            [item setMsg_content:tempItem.msg_content];
+            [item setAnnounce_date:tempItem.announce_date];
+            [item setInternal_doc_no:tempItem.internal_doc_no];
+            [item setInternal_part_no:tempItem.internal_part_no];
+            [item setInternal_model_no:tempItem.internal_model_no];
+            [item setInternal_plant_no:tempItem.internal_plant_no];
+            [item setAnnouncer:tempItem.announcer];
+            [item setIme_code:tempItem.ime_code];
+            [item setReadSp:tempItem.sp];
+            
+            
+            [_typeNotifyList addObject:item];
+        }
+    }
+    
+    NSLog(@"type size = %lu", (unsigned long)[_typeNotifyList count]);
+}
+
+- (IBAction)onTypeChange:(id)sender {
+    
+    UIAlertController * alert=[UIAlertController alertControllerWithTitle:NSLocalizedString(@"TYPE_SELECT_TITLE", nil)
+                                                                  message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* btnAll = [UIAlertAction actionWithTitle:@"全部"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action)
+    {
+        NSLog(@"btnAll");
+        current_select_type = 0;
+        current_select_string = @"全部";
+        [btnTypeSelect setTitle:@"全部" forState:(UIControlStateNormal)];
+        
+        _isFiltered = false;
+        [tableView reloadData];
+    }];
+    
+    UIAlertAction* btnEquipAnomalous = [UIAlertAction actionWithTitle:@"設備異常"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action)
+    {
+        NSLog(@"btnEquipAnomalous");
+        current_select_type = 1;
+        current_select_string = @"設備異常";
+        [btnTypeSelect setTitle:@"設備異常" forState:(UIControlStateNormal)];
+        
+        [self changeTableTypeList];
+        
+        _isFiltered = false;
+        [tableView reloadData];
+    }];
+    
+    UIAlertAction* btnQualAnomalous = [UIAlertAction actionWithTitle:@"品質異常"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action)
+                                        {
+                                            NSLog(@"btnQualAnomalous");
+                                            current_select_type = 2;
+                                            current_select_string = @"品質異常";
+                                            [btnTypeSelect setTitle:@"品質異常" forState:(UIControlStateNormal)];
+                                            
+                                            [self changeTableTypeList];
+                                            
+                                            _isFiltered = false;
+                                            [tableView reloadData];
+                                        }];
+    
+    UIAlertAction* btnGaugeAnomalous = [UIAlertAction actionWithTitle:@"檢具異常"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action)
+                                       {
+                                           NSLog(@"btnGaugeAnomalous");
+                                           current_select_type = 3;
+                                           current_select_string = @"檢具異常";
+                                           [btnTypeSelect setTitle:@"檢具異常" forState:(UIControlStateNormal)];
+                                           
+                                           [self changeTableTypeList];
+                                           
+                                           _isFiltered = false;
+                                           [tableView reloadData];
+                                       }];
+    
+    UIAlertAction* btnFixtureAnomalous = [UIAlertAction actionWithTitle:@"治具異常"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action)
+                                        {
+                                            NSLog(@"btnFixtureAnomalous");
+                                            current_select_type = 4;
+                                            current_select_string = @"治具異常";
+                                            [btnTypeSelect setTitle:@"治具異常" forState:(UIControlStateNormal)];
+                                            
+                                            [self changeTableTypeList];
+                                            
+                                            _isFiltered = false;
+                                            [tableView reloadData];
+                                        }];
+    
+    UIAlertAction* btnStarvedFeeding = [UIAlertAction actionWithTitle:@"缺料異常"
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * action)
+                                          {
+                                              NSLog(@"btnStarvedFeeding");
+                                              current_select_type = 5;
+                                              current_select_string = @"缺料異常";
+                                              [btnTypeSelect setTitle:@"缺料異常" forState:(UIControlStateNormal)];
+                                              
+                                              [self changeTableTypeList];
+                                              
+                                              _isFiltered = false;
+                                              [tableView reloadData];
+                                          }];
+    
+    [alert addAction:btnAll];
+    [alert addAction:btnEquipAnomalous];
+    [alert addAction:btnQualAnomalous];
+    [alert addAction:btnGaugeAnomalous];
+    [alert addAction:btnFixtureAnomalous];
+    [alert addAction:btnStarvedFeeding];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 @end

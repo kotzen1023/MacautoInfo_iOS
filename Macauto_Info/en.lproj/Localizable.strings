@@ -32,7 +32,31 @@
 "MSG_MACHINE_NO" = "Machine No";
 "MSG_PLANT_NO" = "Plant No";
 "ANNOUNCER" = "Announcer";
+"MSG_NO_SUBJECT" = "No Subject";
 
 "SETTING_LOGOUT" = "Logout";
 "SETTING_LOGOUT_ALERT_TITLE" = "Warning!";
 "SETTING_LOGOUT_ALERT_MSG" = "You won't receive msg after logout. Are you sure?";
+
+"DATE_TODAY" = "Today";
+
+"TYPE_SELECT_TITLE" = "Select Type:";
+"TYPE_ALL" = "All";
+"TYPE_EQUIPMENT_ANOMALOUS" = "Equipment Anomalous";
+"TYPE_QUALITY_ANOMALOUS" = "Quality Anomalous";
+"TYPE_GAUGE_ANOMALOUS" = "Gauge Anomalous";
+"TYPE_FIXTURE_ANOMALOUS" = "Fixture Anomalous";
+"TYPE_STARVED_FEEDING" = "Starved Feeding";
+
+"WHO_GOES_OUT_TITLE" = "Outgoing Staff";
+"WHO_GOES_OUT_EMP_NO" = "No.";
+"WHO_GOES_OUT_EMP_NAME" = "Name";
+"WHO_GOES_OUT_START_TIME" = "Start Time";
+"WHO_GOES_OUT_END_TIME" = "End Time";
+"WHO_GOES_OUT_BACK_TIME" = "Back Time";
+"WHO_GOES_OUT_REASON" = "Reason";
+"WHO_GOES_OUT_LOCATION" = "Location";
+"WHO_GOES_OUT_CAR_TYPE" = "Car Type";
+"WHO_GOES_OUT_CAR_NO" = "Car No.";
+"WHO_GOES_OUT_CAR_OR_MOTO" = "Car/Moto";
+

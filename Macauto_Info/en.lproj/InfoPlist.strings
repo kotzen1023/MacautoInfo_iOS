@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Macauto_Info
+
+  Created by SUNUP on 2017/10/2.
+  Copyright © 2017年 Macauto. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "Macauto Info";
+"CFBundleName" = "Macauto Info";
