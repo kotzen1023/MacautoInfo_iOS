@@ -25,7 +25,7 @@
 
 "MSG_TITLE" = "標題";
 "MSG_CONTENT" = "內容";
-"MSG_TIME" = "時間";
+"MSG_TIME" = "發生時間";
 "MSG_DOC_NO" = "文件編號";
 "MSG_PART_NO" = "料件編號";
 "MSG_MODEL_NO" = "機種代號";
@@ -57,6 +57,9 @@
 "WHO_GOES_OUT_REASON" = "事由";
 "WHO_GOES_OUT_LOCATION" = "地點";
 "WHO_GOES_OUT_CAR_TYPE" = "車輛種類";
+"WHO_GOES_OUT_CAR_TYPE_COMPANY" = "公司車";
+"WHO_GOES_OUT_CAR_TYPE_PRIVATE" = "私家車";
 "WHO_GOES_OUT_CAR_NO" = "車牌號碼";
 "WHO_GOES_OUT_CAR_OR_MOTO" = "汽車/機車";
-
+"WHO_GOES_OUT_CAR_OR_MOTO_CAR" = "汽車";
+"WHO_GOES_OUT_CAR_OR_MOTO_MOTO" = "機車";

@@ -11,6 +11,9 @@
 @interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, NSXMLParserDelegate, NSURLSessionDelegate> {
     
     IBOutlet UISearchBar *searchBar;
+
+    
+    __weak IBOutlet UIButton *btnMultiLines;
     __weak IBOutlet UIButton *btnTypeSelect;
     __weak IBOutlet UITableView *tableView;
     UILabel *activityLabel;
@@ -42,6 +45,7 @@
 
 @property NSString *user_id;
 @property NSString *uuid;
+@property NSString *multi_lines;
 @property int status_bar_height;
 @property long unread_sp_count;
 
@@ -49,6 +53,8 @@
 @property NSString *current_select_string;
 
 - (IBAction)onTypeChange:(id)sender;
+- (IBAction)onMultiLinesChange:(id)sender;
+
 
 @end
 

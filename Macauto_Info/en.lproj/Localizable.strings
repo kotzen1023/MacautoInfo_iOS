@@ -25,7 +25,7 @@
 
 "MSG_TITLE" = "Title";
 "MSG_CONTENT" = "Content";
-"MSG_TIME" = "Time";
+"MSG_TIME" = "Occur Time";
 "MSG_DOC_NO" = "Doc No";
 "MSG_PART_NO" = "Part No";
 "MSG_MODEL_NO" = "Model No";
@@ -57,6 +57,9 @@
 "WHO_GOES_OUT_REASON" = "Reason";
 "WHO_GOES_OUT_LOCATION" = "Location";
 "WHO_GOES_OUT_CAR_TYPE" = "Car Type";
+"WHO_GOES_OUT_CAR_TYPE_COMPANY" = "Company Car";
+"WHO_GOES_OUT_CAR_TYPE_PRIVATE" = "Private Car";
 "WHO_GOES_OUT_CAR_NO" = "Car No.";
 "WHO_GOES_OUT_CAR_OR_MOTO" = "Car/Moto";
-
+"WHO_GOES_OUT_CAR_OR_MOTO_CAR" = "Car";
+"WHO_GOES_OUT_CAR_OR_MOTO_MOTO" = "Motorcycle";

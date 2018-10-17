@@ -50,7 +50,7 @@
     
     UIAlertAction *yesBtn = [UIAlertAction actionWithTitle:NSLocalizedString(@"COMMON_OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         
-        NSString *topic = [NSString stringWithFormat:@"/topics/%@", user_id];
+        NSString *topic = [NSString stringWithFormat:@"/topics/%@", self->user_id];
         
         [[FIRMessaging messaging] unsubscribeFromTopic:topic];
         NSLog(@"Unsubscribed topic: %@", topic);
@@ -76,7 +76,7 @@
     
     UIAlertAction *yesBtn = [UIAlertAction actionWithTitle:NSLocalizedString(@"COMMON_OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         
-        NSString *topic = [NSString stringWithFormat:@"/topics/%@", user_id];
+        NSString *topic = [NSString stringWithFormat:@"/topics/%@", self->user_id];
         
         [[FIRMessaging messaging] unsubscribeFromTopic:topic];
         NSLog(@"Unsubscribed topic: %@", topic);

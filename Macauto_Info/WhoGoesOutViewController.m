@@ -358,14 +358,14 @@
         
         
         
-        huiView.contentSize = CGSizeMake(0, lbl_emp_no_header.frame.origin.y + lbl_emp_no_header.frame.size.height+50);
+        self->huiView.contentSize = CGSizeMake(0, self->lbl_emp_no_header.frame.origin.y + self->lbl_emp_no_header.frame.size.height+50);
         
-        lbl_emp_no_show.frame = CGRectMake(105, 30, self.view.bounds.size.width-105, 21);
-        [lbl_emp_no_show setText: item.emp_no];
+        self->lbl_emp_no_show.frame = CGRectMake(105, 30, self.view.bounds.size.width-105, 21);
+        [self->lbl_emp_no_show setText: item.emp_no];
         
         
         
-        [lbl_emp_name_show setText: item.emp_name];
+        [self->lbl_emp_name_show setText: item.emp_name];
         
         /*
         // convert to date
@@ -386,11 +386,11 @@
          */
         
         
-        [lbl_start_date_show setText: item.start_date];
+        [self->lbl_start_date_show setText: item.start_date];
         
-        [lbl_end_date_show setText: item.end_date];
+        [self->lbl_end_date_show setText: item.end_date];
         
-        [lbl_back_date_show setText: item.back_date];
+        [self->lbl_back_date_show setText: item.back_date];
         /*if (item.back_date != nil || ![item.back_date compare:@""]) {
             lbl_back_date_header.hidden = true;
             lbl_back_date_show.hidden = true;
@@ -400,10 +400,16 @@
             
         }*/
         
-        [lbl_reason_show setText: item.reason];
-        [lbl_location_show setText: item.location];
+        [self->lbl_reason_show setText: item.reason];
+        [self->lbl_location_show setText: item.location];
         
-        [lbl_car_type_show setText: item.car_type];
+        //[self->lbl_car_type_show setText: item.car_type];
+        
+        if (item.car_type != nil && item.car_type.length > 0) {
+            [self->lbl_car_type_show setText: item.car_type];
+        } else {
+            [self->lbl_car_type_show setText: @""];
+        }
         
         /*if (item.car_type != nil || ![item.car_type compare:@""]) {
             lbl_car_type_header.hidden = true;
@@ -414,7 +420,13 @@
             
         }*/
         
-        [lbl_car_no_show setText: item.car_no];
+        //[self->lbl_car_no_show setText: item.car_no];
+        
+        if (item.car_no != nil && item.car_no.length > 0) {
+            [self->lbl_car_no_show setText: item.car_no];
+        } else {
+            [self->lbl_car_no_show setText: @""];
+        }
         
         /*if (item.car_no != nil || ![item.car_no compare:@""]) {
             lbl_car_no_header.hidden = true;
@@ -425,7 +437,13 @@
             
         }*/
         
-        [lbl_car_or_moto_show setText: item.car_or_moto];
+        //[self->lbl_car_or_moto_show setText: item.car_or_moto];
+        
+        if (item.car_or_moto != nil && item.car_or_moto.length > 0) {
+            [self->lbl_car_or_moto_show setText: item.car_or_moto];
+        } else {
+            [self->lbl_car_or_moto_show setText: @""];
+        }
         
         /*if (item.car_or_moto != nil || ![item.car_or_moto compare:@""]) {
             lbl_car_or_moto_header.hidden = true;
@@ -441,7 +459,7 @@
         //[lbl_time_show setText: item.announce_date];
         
         
-        huiView.contentSize = CGSizeMake(0, status_bar_height+lbl_car_or_moto_header.frame.origin.y + lbl_car_or_moto_header.frame.size.height+50);
+        self->huiView.contentSize = CGSizeMake(0, self->status_bar_height+self->lbl_car_or_moto_header.frame.origin.y + self->lbl_car_or_moto_header.frame.size.height+50);
         
     }];
     
@@ -592,7 +610,7 @@
 - (void) backWoGoesOut:(id)sender
 {
     [UIView animateWithDuration:0.7 animations:^{
-        huiView.frame = CGRectMake((self.view.bounds.size.width), self.topLayoutGuide.length-self.navigationController.navigationBar.frame.size.height,
+        self->huiView.frame = CGRectMake((self.view.bounds.size.width), self.topLayoutGuide.length-self.navigationController.navigationBar.frame.size.height,
                                    self.view.bounds.size.width,
                                    self.view.bounds.size.height);
     }];
@@ -897,6 +915,7 @@
         NSLog(@"%02x", rawBytes[i]);
     }*/
     
+    
     if (_isEmpName || _isLocation || _isReason) {
         //if (![string isEqualToString:@" "]) {
         _elementValue = [NSString stringWithFormat: @"%@%@", _elementValue, string];
@@ -934,79 +953,112 @@
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setApp_sent_datetime:_elementValue];
+            _elementValue = @"";
         }
     } else if ([elementName containsString:@"app_sent_status"]) {
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setApp_sent_status:_elementValue];
+            _elementValue = @"";
         }
     } else if ([elementName containsString:@"back_date"]) {
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setBack_date:_elementValue];
+            _elementValue = @"";
         }
     } else if ([elementName containsString:@"car_no"]) {
         if (_doc && _isOriginalList) {
             
-            if ([_elementValue containsString:_item.back_date]) {
+            /*if ([_elementValue containsString:_item.car_no]) {
                 [_item setCar_no:@"N"];
             } else {
                 NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
                 [_item setCar_no:_elementValue];
+            }*/
+            NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
+            if ([_elementValue length] > 0) {
+                [_item setCar_no:_elementValue];
+            } else {
+                [_item setCar_no:@""];
             }
+            
+            _elementValue = @"";
         }
     } else if ([elementName containsString:@"car_or_moto"]) {
         if (_doc && _isOriginalList) {
-            NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
-            [_item setCar_or_moto:_elementValue];
+            
+            if ([_elementValue isEqualToString: @"C"]) {
+                NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
+                [_item setCar_or_moto:NSLocalizedString(@"WHO_GOES_OUT_CAR_OR_MOTO_CAR", nil)];
+            } else if ([_elementValue isEqualToString: @"M"]) {
+                NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
+                [_item setCar_or_moto:NSLocalizedString(@"WHO_GOES_OUT_CAR_OR_MOTO_MOTO", nil)];
+            } else {
+                NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
+                [_item setCar_or_moto:_elementValue];
+            }
+            _elementValue = @"";
         }
     } else if ([elementName containsString:@"car_type"]) {
         if (_doc && _isOriginalList) {
-            NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
-            [_item setCar_type:_elementValue];
-        }
-    } else if ([elementName containsString:@"car_type"]) {
-        if (_doc && _isOriginalList) {
-            NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
-            [_item setCar_type:_elementValue];
+            
+            if ([_elementValue isEqualToString: @"C"]) {
+                NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
+                [_item setCar_type:NSLocalizedString(@"WHO_GOES_OUT_CAR_TYPE_COMPANY", nil)];
+            } else if ([_elementValue isEqualToString: @"P"]) {
+                NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
+                [_item setCar_type:NSLocalizedString(@"WHO_GOES_OUT_CAR_TYPE_PRIVATE", nil)];
+            } else {
+                NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
+                [_item setCar_type:_elementValue];
+            }
+            _elementValue = @"";
         }
     } else if ([elementName containsString:@"emp_name"]) {
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setEmp_name:_elementValue];
+            _elementValue = @"";
         }
         _isEmpName = false;
     } else if ([elementName containsString:@"emp_no"]) {
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setEmp_no:_elementValue];
+            _elementValue = @"";
         }
     } else if ([elementName containsString:@"end_date"]) {
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setEnd_date:_elementValue];
+            _elementValue = @"";
         }
     } else if ([elementName containsString:@"id"]) {
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setData_id:_elementValue];
+            _elementValue = @"";
         }
     } else if ([elementName containsString:@"location"]) {
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setLocation:_elementValue];
+            _elementValue = @"";
         }
         _isLocation = false;
     } else if ([elementName containsString:@"reason"]) {
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setReason:_elementValue];
+            _elementValue = @"";
         }
         _isReason = false;
     } else if ([elementName containsString:@"start_date"]) {
         if (_doc && _isOriginalList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setStart_date:_elementValue];
+            _elementValue = @"";
         }
     }
     

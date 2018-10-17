@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "Firebase.h"
 
+
 @interface AppDelegate ()
 @property long unread_sp_count;
 @end
@@ -126,6 +127,7 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     // Store the deviceToken in the current Installation and save it to Parse.
+    //[[FIRInstanceID instanceID] setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeSandbox];
     [[FIRInstanceID instanceID] setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeSandbox];
     
     //[[FIRMessaging messaging] subscribeToTopic:@"/topics/test"];

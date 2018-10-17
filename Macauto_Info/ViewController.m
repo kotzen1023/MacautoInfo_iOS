@@ -24,6 +24,7 @@
 @property BOOL doc;
 @property BOOL isNotifyList;
 @property BOOL isRoomName;
+@property BOOL isMsgTitle;
 
 @property NotifyItem *item;
 @property BOOL isFiltered;
@@ -33,12 +34,14 @@
 @property ThemeColor *themeColor;
 @property NSDate *today;
 @property NSDateFormatter *dateFormat;
+
+
 @end
 
 @implementation ViewController
 @synthesize activityIndicator;
 @synthesize soapMessage, webResponseData, currentElement;
-@synthesize user_id, uuid, status_bar_height, unread_sp_count;
+@synthesize user_id, uuid, multi_lines, status_bar_height, unread_sp_count;
 @synthesize current_select_type;
 @synthesize current_select_string;
 
@@ -51,6 +54,15 @@
     
     user_id = [defaults objectForKey:@"Account"];
     uuid = [defaults objectForKey:@"DeviceID"];
+    multi_lines = [defaults objectForKey:@"MultiLines"];
+    
+    NSLog(@"multi_lines = %@", multi_lines);
+    
+    if ([multi_lines isEqualToString:@"true"]) {
+        [btnMultiLines setImage:[UIImage imageNamed:@"less"] forState:normal];
+    } else {
+        [btnMultiLines setImage:[UIImage imageNamed:@"more"] forState:normal];
+    }
     
     //set button text
     [btnTypeSelect setTitle:@"全部" forState:UIControlStateNormal];
@@ -281,6 +293,8 @@
     
     UITableViewCell *cell = [myTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -302,6 +316,15 @@
     }
     
     UILabel *subject = (UILabel *)[cell viewWithTag:100];
+    
+    if ([multi_lines isEqualToString:@"true"]) {
+        [subject setLineBreakMode:NSLineBreakByWordWrapping];
+        [subject setNumberOfLines:0];
+    } else {
+        [subject setLineBreakMode:NSLineBreakByTruncatingTail];
+        [subject setNumberOfLines:1];
+    }
+    
     UILabel *day = (UILabel *)[cell viewWithTag:103];
     //subject.textColor = [UIColor colorWithRed:(120/255.0) green:(120/255.0) blue:(120/255.0) alpha:1.0];
     //subject.text = item.title;
@@ -448,19 +471,19 @@
         
         
         
-        huiView.contentSize = CGSizeMake(0, lbl_title_header.frame.origin.y + lbl_title_header.frame.size.height+50);
+        self->huiView.contentSize = CGSizeMake(0, self->lbl_title_header.frame.origin.y + self->lbl_title_header.frame.size.height+50);
         
-        lbl_title_show.frame = CGRectMake(105, 30, self.view.bounds.size.width-105, 63);
+        self->lbl_title_show.frame = CGRectMake(105, 30, self.view.bounds.size.width-105, 63);
         
         if (item.msg_title == nil || [item.msg_title isEqualToString:@""]) {
-            [lbl_title_show setText: [NSString stringWithFormat:@"%@", item.msg_code]];
+            [self->lbl_title_show setText: [NSString stringWithFormat:@"%@", item.msg_code]];
         } else {
-            [lbl_title_show setText: [NSString stringWithFormat:@"%@ %@", item.msg_code, item.msg_title]];
+            [self->lbl_title_show setText: [NSString stringWithFormat:@"%@ %@", item.msg_code, item.msg_title]];
         }
         
     
         
-        [lbl_content_show setText:item.msg_content];
+        [self->lbl_content_show setText:item.msg_content];
         
         
         // convert to date
@@ -480,60 +503,60 @@
         NSLog(@"DateString: %@", dateString);
         
         
-        [lbl_time_show setText: dateString];
+        [self->lbl_time_show setText: dateString];
         
         if (item.internal_doc_no != nil || ![item.internal_doc_no compare:@""]) {
-            lbl_doc_no_header.hidden = true;
-            lbl_doc_no_show.hidden = true;
+            self->lbl_doc_no_header.hidden = true;
+            self->lbl_doc_no_show.hidden = true;
         } else {
-            lbl_doc_no_header.hidden = false;
-            lbl_doc_no_show.hidden = false;
+            self->lbl_doc_no_header.hidden = false;
+            self->lbl_doc_no_show.hidden = false;
         }
         
         if (item.internal_part_no != nil || ![item.internal_part_no compare:@""]) {
-            lbl_part_no_header.hidden = true;
-            lbl_part_no_show.hidden = true;
+            self->lbl_part_no_header.hidden = true;
+            self->lbl_part_no_show.hidden = true;
         } else {
-            lbl_part_no_header.hidden = false;
-            lbl_part_no_show.hidden = false;
+            self->lbl_part_no_header.hidden = false;
+            self->lbl_part_no_show.hidden = false;
         }
         
         if (item.internal_model_no != nil || ![item.internal_model_no compare:@""]) {
-            lbl_model_no_header.hidden = true;
-            lbl_model_no_show.hidden = true;
+            self->lbl_model_no_header.hidden = true;
+            self->lbl_model_no_show.hidden = true;
         } else {
-            lbl_model_no_header.hidden = false;
-            lbl_model_no_show.hidden = false;
+            self->lbl_model_no_header.hidden = false;
+            self->lbl_model_no_show.hidden = false;
         }
         
         if (item.internal_machine_no != nil || ![item.internal_machine_no compare:@""]) {
-            lbl_machine_no_header.hidden = true;
-            lbl_machine_no_show.hidden = true;
+            self->lbl_machine_no_header.hidden = true;
+            self->lbl_machine_no_show.hidden = true;
         } else {
-            lbl_machine_no_header.hidden = false;
-            lbl_machine_no_show.hidden = false;
+            self->lbl_machine_no_header.hidden = false;
+            self->lbl_machine_no_show.hidden = false;
         }
         
         if (item.internal_plant_no != nil || ![item.internal_plant_no compare:@""]) {
-            lbl_plant_no_header.hidden = true;
-            lbl_plant_no_show.hidden = true;
+            self->lbl_plant_no_header.hidden = true;
+            self->lbl_plant_no_show.hidden = true;
         } else {
-            lbl_plant_no_header.hidden = false;
-            lbl_plant_no_show.hidden = false;
+            self->lbl_plant_no_header.hidden = false;
+            self->lbl_plant_no_show.hidden = false;
         }
         
         if (item.announcer != nil || ![item.announcer compare:@""]) {
-            lbl_announcer_header.hidden = true;
-            lbl_announcer_show.hidden = true;
+            self->lbl_announcer_header.hidden = true;
+            self->lbl_announcer_show.hidden = true;
         } else {
-            lbl_announcer_header.hidden = false;
-            lbl_announcer_show.hidden = false;
+            self->lbl_announcer_header.hidden = false;
+            self->lbl_announcer_show.hidden = false;
         }
         
         //[lbl_time_show setText: item.announce_date];
         
         
-        huiView.contentSize = CGSizeMake(0, status_bar_height+lbl_announcer_header.frame.origin.y + lbl_announcer_header.frame.size.height+50);
+        self->huiView.contentSize = CGSizeMake(0, self->status_bar_height+self->lbl_announcer_header.frame.origin.y + self->lbl_announcer_header.frame.size.height+50);
         
     }];
     
@@ -710,7 +733,7 @@
 - (void) backPersonalMeeting:(id)sender
 {
     [UIView animateWithDuration:0.7 animations:^{
-        huiView.frame = CGRectMake((self.view.bounds.size.width), self.topLayoutGuide.length-self.navigationController.navigationBar.frame.size.height,
+        self->huiView.frame = CGRectMake((self.view.bounds.size.width), self.topLayoutGuide.length-self.navigationController.navigationBar.frame.size.height,
                                    self.view.bounds.size.width,
                                    self.view.bounds.size.height);
     }];
@@ -954,7 +977,7 @@
     _doc = false;
     _isNotifyList = false;
     _isRoomName = false;
-    
+    _isMsgTitle = false;
     
     //[NSThread detachNewThreadSelector:@selector(actIndicatorEnd) toTarget:self withObject:nil];
     return _notifyList;
@@ -1141,8 +1164,9 @@
         _item = [[NotifyItem alloc] init];
     } else if ([elementName isEqualToString:@"room_name"]) {
         _isRoomName = true;
-    }
-    else if ([elementName isEqualToString:@"Message_Update_Read_StatusResponse"]) {
+    } else if ([elementName isEqualToString:@"message_title"]) {
+        _isMsgTitle = true;
+    } else if ([elementName isEqualToString:@"Message_Update_Read_StatusResponse"]) {
         _update = true;
     } else if([elementName isEqualToString:@"Message_Update_Read_StatusResult"]) {
         NSLog(@"<%@>", elementName);
@@ -1158,11 +1182,20 @@
     //NSLog(@"value = %@", string);
     NSLog(@"value = %@, size = %ld", string, (unsigned long)string.length);
     if (_isRoomName) {
+        
         //if (![string isEqualToString:@" "]) {
         _elementValue = [NSString stringWithFormat: @"%@%@", _elementValue, string];
         NSCharacterSet *dont = [NSCharacterSet characterSetWithCharactersInString:@"\n "];
         _elementValue = [[_elementValue componentsSeparatedByCharactersInSet:dont]componentsJoinedByString:@""];
+        
+        NSLog(@"_isRoomName = %@", _elementValue);
         //}
+    } else if (_isMsgTitle) {
+        
+        _elementValue = [NSString stringWithFormat: @"%@%@", _elementValue, string];
+        NSCharacterSet *dont = [NSCharacterSet characterSetWithCharactersInString:@"\n "];
+        _elementValue = [[_elementValue componentsSeparatedByCharactersInSet:dont]componentsJoinedByString:@""];
+        NSLog(@"_isMsgTitle = %@", _elementValue);
     }
     else {
         _elementValue = string;
@@ -1204,6 +1237,7 @@
         if (_doc && _isNotifyList) {
             NSLog(@"<%@>%@</%@>", _elementStart, _elementValue, _elementEnd);
             [_item setMsg_title:_elementValue];
+            _isMsgTitle = false;
         }
     } else if ([elementName isEqualToString:@"message_content"]) {
         if (_doc && _isNotifyList) {
@@ -1362,12 +1396,12 @@
                                                       handler:^(UIAlertAction * action)
     {
         NSLog(@"btnAll");
-        current_select_type = 0;
-        current_select_string = @"全部";
-        [btnTypeSelect setTitle:@"全部" forState:(UIControlStateNormal)];
+        self->current_select_type = 0;
+        self->current_select_string = @"全部";
+        [self->btnTypeSelect setTitle:@"全部" forState:(UIControlStateNormal)];
         
-        _isFiltered = false;
-        [tableView reloadData];
+        self->_isFiltered = false;
+        [self->tableView reloadData];
     }];
     
     UIAlertAction* btnEquipAnomalous = [UIAlertAction actionWithTitle:@"設備異常"
@@ -1375,14 +1409,14 @@
                                                      handler:^(UIAlertAction * action)
     {
         NSLog(@"btnEquipAnomalous");
-        current_select_type = 1;
-        current_select_string = @"設備異常";
-        [btnTypeSelect setTitle:@"設備異常" forState:(UIControlStateNormal)];
+        self->current_select_type = 1;
+        self->current_select_string = @"設備異常";
+        [self->btnTypeSelect setTitle:@"設備異常" forState:(UIControlStateNormal)];
         
         [self changeTableTypeList];
         
-        _isFiltered = false;
-        [tableView reloadData];
+        self->_isFiltered = false;
+        [self->tableView reloadData];
     }];
     
     UIAlertAction* btnQualAnomalous = [UIAlertAction actionWithTitle:@"品質異常"
@@ -1390,14 +1424,14 @@
                                                               handler:^(UIAlertAction * action)
                                         {
                                             NSLog(@"btnQualAnomalous");
-                                            current_select_type = 2;
-                                            current_select_string = @"品質異常";
-                                            [btnTypeSelect setTitle:@"品質異常" forState:(UIControlStateNormal)];
+                                            self->current_select_type = 2;
+                                            self->current_select_string = @"品質異常";
+                                            [self->btnTypeSelect setTitle:@"品質異常" forState:(UIControlStateNormal)];
                                             
                                             [self changeTableTypeList];
                                             
-                                            _isFiltered = false;
-                                            [tableView reloadData];
+                                            self->_isFiltered = false;
+                                            [self->tableView reloadData];
                                         }];
     
     UIAlertAction* btnGaugeAnomalous = [UIAlertAction actionWithTitle:@"檢具異常"
@@ -1405,14 +1439,14 @@
                                                              handler:^(UIAlertAction * action)
                                        {
                                            NSLog(@"btnGaugeAnomalous");
-                                           current_select_type = 3;
-                                           current_select_string = @"檢具異常";
-                                           [btnTypeSelect setTitle:@"檢具異常" forState:(UIControlStateNormal)];
+                                           self->current_select_type = 3;
+                                           self->current_select_string = @"檢具異常";
+                                           [self->btnTypeSelect setTitle:@"檢具異常" forState:(UIControlStateNormal)];
                                            
                                            [self changeTableTypeList];
                                            
-                                           _isFiltered = false;
-                                           [tableView reloadData];
+                                           self->_isFiltered = false;
+                                           [self->tableView reloadData];
                                        }];
     
     UIAlertAction* btnFixtureAnomalous = [UIAlertAction actionWithTitle:@"治具異常"
@@ -1420,14 +1454,14 @@
                                                               handler:^(UIAlertAction * action)
                                         {
                                             NSLog(@"btnFixtureAnomalous");
-                                            current_select_type = 4;
-                                            current_select_string = @"治具異常";
-                                            [btnTypeSelect setTitle:@"治具異常" forState:(UIControlStateNormal)];
+                                            self->current_select_type = 4;
+                                            self->current_select_string = @"治具異常";
+                                            [self->btnTypeSelect setTitle:@"治具異常" forState:(UIControlStateNormal)];
                                             
                                             [self changeTableTypeList];
                                             
-                                            _isFiltered = false;
-                                            [tableView reloadData];
+                                            self->_isFiltered = false;
+                                            [self->tableView reloadData];
                                         }];
     
     UIAlertAction* btnStarvedFeeding = [UIAlertAction actionWithTitle:@"缺料異常"
@@ -1435,14 +1469,14 @@
                                                                 handler:^(UIAlertAction * action)
                                           {
                                               NSLog(@"btnStarvedFeeding");
-                                              current_select_type = 5;
-                                              current_select_string = @"缺料異常";
-                                              [btnTypeSelect setTitle:@"缺料異常" forState:(UIControlStateNormal)];
+                                              self->current_select_type = 5;
+                                              self->current_select_string = @"缺料異常";
+                                              [self->btnTypeSelect setTitle:@"缺料異常" forState:(UIControlStateNormal)];
                                               
                                               [self changeTableTypeList];
                                               
-                                              _isFiltered = false;
-                                              [tableView reloadData];
+                                              self->_isFiltered = false;
+                                              [self->tableView reloadData];
                                           }];
     
     [alert addAction:btnAll];
@@ -1454,4 +1488,52 @@
     
     [self presentViewController:alert animated:YES completion:nil];
 }
+
+- (IBAction)onMultiLinesChange:(id)sender {
+    
+    
+    if ([multi_lines isEqualToString:@"true"]) {
+        multi_lines = @"false";
+        NSLog(@"multi_lines = %@", multi_lines);
+        
+        [btnMultiLines setImage:[UIImage imageNamed:@"more"] forState:normal];
+        [tableView setRowHeight:60];
+        
+    } else {
+        multi_lines = @"true";
+        NSLog(@"multi_lines = %@", multi_lines);
+        
+        
+        [btnMultiLines setImage:[UIImage imageNamed:@"less"] forState:normal];
+        [tableView setRowHeight:100];
+        
+    }
+    
+    [tableView reloadData];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:multi_lines forKey:@"MultiLines"];
+}
+
+/*- (IBAction)onMultiLinesChange:(id)sender {
+    if ([multi_lines isEqualToString:@"true"]) {
+        multi_lines = @"false";
+        NSLog(@"multi_lines = %@", multi_lines);
+        
+        [btnMultiLines setImage:[UIImage imageNamed:@"more"] forState:normal];
+        [tableView setRowHeight:60];
+    } else {
+        multi_lines = @"true";
+        NSLog(@"multi_lines = %@", multi_lines);
+        
+        
+        [btnMultiLines setImage:[UIImage imageNamed:@"less"] forState:normal];
+        [tableView setRowHeight:100];
+    }
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:multi_lines forKey:@"MultiLines"];
+}*/
 @end

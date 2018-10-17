@@ -47,23 +47,23 @@
     
     
     [UIView animateWithDuration:2.0 animations:^{
-        [_header setAlpha:1.0f];
-        _header.text = NSLocalizedString(@"MACAUTO_INFO", nil);
+        [self->_header setAlpha:1.0f];
+        self->_header.text = NSLocalizedString(@"MACAUTO_INFO", nil);
         
     } completion:^(BOOL finished) {
         
         //fade out
         [UIView animateWithDuration:2.0f animations:^{
             
-            [_header setAlpha: 0.0f];
+            [self->_header setAlpha: 0.0f];
             
             
         } completion:^(BOOL finished) {
             
             UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             
-            if (_account != nil && ![_account isEqualToString: @""] &&
-                _deviceId != nil && ![_deviceId isEqualToString:@""]) {
+            if (self->_account != nil && ![self->_account isEqualToString: @""] &&
+                self->_deviceId != nil && ![self->_deviceId isEqualToString:@""]) {
                 
                 UIViewController *vc = [storyBoard instantiateViewControllerWithIdentifier:@"TabBarViewController"];
                 [self presentViewController:vc animated:YES completion:nil];
